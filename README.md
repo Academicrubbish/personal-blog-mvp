@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Personal Blog MVP
 
-## Getting Started
+一个动态个人博客 MVP，包含：
 
-First, run the development server:
+- 首页文章列表和文章详情
+- 单管理员登录
+- 新建、编辑、删除文章
+- 草稿 / 已发布状态
+- 分类和标签
+- Markdown 正文与代码高亮
+- 封面图片上传
+- RSS、SEO metadata 和 sitemap
 
-```bash
+## 技术栈
+
+Next.js App Router、TypeScript、Prisma Client、SQLite、Tailwind CSS、JWT 会话。
+
+## 本地运行
+
+\`\`\`bash
+npm install
+npm run db:generate
+npm run db:init
+npm run db:seed
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+\`\`\`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+打开 http://localhost:3000，后台地址是 http://localhost:3000/admin。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+默认账号：
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+\`\`\`text
+邮箱：admin@example.com
+密码：admin123
+\`\`\`
 
-## Learn More
+部署前请修改 .env 中的 AUTH_SECRET、ADMIN_EMAIL 和 ADMIN_PASSWORD。
 
-To learn more about Next.js, take a look at the following resources:
+## 数据库说明
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+MVP 使用 SQLite，数据库文件位于 prisma/dev.db。db:init 使用 scripts/init-db.sql 创建表，之后可以用 npm run db:studio 查看数据。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+项目后续可以把 prisma/schema.prisma 的 provider 改成 PostgreSQL，再使用 Prisma migration 迁移到正式数据库。
